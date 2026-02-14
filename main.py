@@ -148,11 +148,17 @@ async def clear_data(message: types.Message):
 
 # Start
 async def main():
-    # Germaniya serverida bo'lsa ham aynan Toshkent vaqti bilan 10:00 da ishlaydi
-    scheduler.add_job(daily_job, 'cron', hour=10, minute=0)
+    # APScheduler sozlamasi
+    # day_of_week='mon-sat' --> Dushanbadan Shanbagacha ishlaydi (Yakshanba dam)
+    scheduler.add_job(
+        daily_job, 
+        'cron', 
+        day_of_week='mon-sat', 
+        hour=10, 
+        minute=0
+    )
     scheduler.start()
     
-    logging.info("Bot ishga tushdi (Tashkent TimeZone).")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
